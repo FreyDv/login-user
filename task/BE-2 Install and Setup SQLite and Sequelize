@@ -1,0 +1,6 @@
+Need install:
+mysql
+@nestjs/sequelize
+sequelize - create configuration SequelizeModule.forRoot using config for Sequelize.
+sequelize-typescript
+@types/sequelize to devDependencies

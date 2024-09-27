@@ -1,0 +1,12 @@
+Create CRUD LoginController with base Endpoint /login
+and additional:
+/login
+/logOut
+
+Create AuthService with next methods And all needed DTO:
+
+login
+encryptPassword(password)
+validatePassword(password)
+validateJWT(jwt)
+generateJWT(userId)

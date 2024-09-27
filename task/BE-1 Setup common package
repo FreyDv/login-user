@@ -1,0 +1,8 @@
+Install and make initial setup of
+class-validator - Setup middleware on App module level with whitelist of body.
+class-transformer - Setup on App module level to transform all body to DTO.
+dotenv - Refactor npm script to run project within dotenv.
+config - Create configuration file to parse env with default value.
+Swagger - Add auto generative OpenApi documentation V1 (path be/doc/v1)
+@nestjs/jwt - import with secret from env in AuthService
+

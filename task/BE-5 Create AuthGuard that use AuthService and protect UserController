@@ -1,0 +1,9 @@
+Create Guard that check header "auth" and try extract JWT Token
+
+Use AuthService to validate JWT Token and receive payload with UserId inside
+
+If JWT Token not valid restrict permission to UserResource
+
+No refreshToken needed!
+
+Mixin to request context userId from payload.

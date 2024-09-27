@@ -1,0 +1,21 @@
+Create UserModel
+
+Create CRUD UserController with base Endpoint /user
+and additional:
+GET /user/:id
+POST /user/' -b 'email, name, secondName'
+UPDATE /user/:id -b 'email?, name?, secondName?'
+DELETE /user/:id
+
+Create UserService with next methods And all needed DTO:
+
+findById(id)
+findByEmail(email)
+create(id, data)
+update(id, data)
+delete(id)
+
+
+
+
+
