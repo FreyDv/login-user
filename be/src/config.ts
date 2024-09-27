@@ -1,15 +1,16 @@
 import * as process from 'node:process';
 
-const { PORT, DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD } = process.env;
+const { PORT, DB_HOST, DB_PORT, MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD } =
+  process.env;
 
 export const config = {
   port: +(PORT || 3000),
   debug: process.env.DEBUG === 'true',
   db: {
-    host: DB_HOST || 'lb',
+    host: DB_HOST || 'db',
     port: +(DB_PORT || 3306),
-    name: DB_NAME,
-    username: DB_USER,
-    password: DB_PASSWORD,
+    name: MYSQL_DATABASE,
+    username: MYSQL_USER,
+    password: MYSQL_PASSWORD,
   },
 };

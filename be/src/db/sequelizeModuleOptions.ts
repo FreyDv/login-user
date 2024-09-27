@@ -26,9 +26,6 @@ export const sequelizeConfig: SequelizeModuleOptions = {
               `Authorized to MySQL ${connection['authorized'] ? 'Successfully' : 'Failed'}!`,
             );
           },
-          beforeDisconnect: () => {
-            console.log('Disconnecting from MySQL...');
-          },
         },
       }
     : {}),

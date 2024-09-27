@@ -2,38 +2,44 @@ version: '3.8'
 
 services:
   be:
-    image: node:20.10.0
+    image: be
     container_name: be
     hostname: be
-    working_dir: /usr/src/app
-    volumes:
-      - .:/usr/src/app
-    environment:
-      - DB_HOST=${DB_HOST}
-      - DB_PORT=${DB_PORT}
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - DB_NAME=${DB_NAME}
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: prod
     ports:
       - ${PORT}:${PORT}
+    env_file:
+      - .env
     depends_on:
       - db
-    command: sh -c "npm install --production && npm run start:prod"
+    networks:
+      - beck-end-network
 
   db:
     image: mysql:8.0
     container_name: db
     hostname: db
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
       - ${DB_PORT}:${DB_PORT}
     volumes:
       - db_data:/var/lib/mysql
+    env_file:
+      - .env
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+      start_period: 10s
+      interval: 5s
+      timeout: 2s
+      retries: 5
+    networks:
+      - beck-end-network
 
+networks:
+  beck-end-network:
+    driver: bridge
 volumes:
   db_data:
