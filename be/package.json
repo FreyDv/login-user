@@ -15,14 +15,14 @@
     "start:dev": "dotenvx run -- nest start --watch",
     "start:debug": "dotenvx run -- nest start --debug --watch",
     "start:prod": "dotenvx run -- node dist/main",
-    "start:db": "dotenvx run -- docker compose up db --build",
+    "start:db": "docker compose up db --build",
     "restart:db": "docker rm -f db; npm run start:db",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "dotenvx run -- jest --config ./test/jest-e2e.json --detectOpenHandles"
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^1.14.1",
