@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 
 describe('AppController', () => {
   let appController: AppController;
@@ -8,15 +7,29 @@ describe('AppController', () => {
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [AppService],
+      providers: [],
     }).compile();
 
     appController = app.get<AppController>(AppController);
   });
 
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+  describe('GET /ping', () => {
+    it('should return "pong"', () => {
+      const msg = appController.getHello().split('_')[0];
+
+      expect(msg).toBe('pong');
+    });
+
+    it('should return "timestamp"', () => {
+      const timeBeforeCall = Date.now();
+
+      const ms = appController.getHello().split('_')[1];
+
+      const timeAfterCall = Date.now();
+
+      expect(timeAfterCall - timeBeforeCall).toBeLessThanOrEqual(15);
+      expect(timeBeforeCall <= +ms).toBeTruthy();
+      expect(timeAfterCall >= +ms).toBeTruthy();
     });
   });
 });
