@@ -4,6 +4,7 @@ services:
   be:
     image: node:20.10.0
     container_name: be
+    hostname: be
     working_dir: /usr/src/app
     volumes:
       - .:/usr/src/app
@@ -22,6 +23,7 @@ services:
   db:
     image: mysql:8.0
     container_name: db
+    hostname: db
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
