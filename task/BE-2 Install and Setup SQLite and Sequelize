@@ -1,5 +1,5 @@
 Need install:
-mysql
+mysql2
 @nestjs/sequelize
 sequelize - create configuration SequelizeModule.forRoot using config for Sequelize.
 sequelize-typescript
