@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  be:
+    image: node:20.10.0
+    container_name: be
+    hostname: be
+    working_dir: /usr/src/app
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+    ports:
+      - ${PORT}:${PORT}
+    depends_on:
+      - db
+    command: sh -c "npm install --production && npm run start:prod"
+
+  db:
+    image: mysql:8.0
+    container_name: db
+    hostname: db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
