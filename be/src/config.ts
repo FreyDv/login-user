@@ -4,6 +4,7 @@ const { PORT, DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD } = process.env;
 
 export const config = {
   port: +(PORT || 3000),
+  debug: process.env.DEBUG === 'true',
   db: {
     host: DB_HOST || 'lb',
     port: +(DB_PORT || 3306),
