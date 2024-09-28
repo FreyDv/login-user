@@ -1,4 +1,4 @@
-name: ci.yml
+name: fans-crm.ci.yml
 on:
   push:
     branches:
