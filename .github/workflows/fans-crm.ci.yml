@@ -1,0 +1,71 @@
+name: ci.yml
+on:
+  push:
+    branches:
+      - fans-crm
+  pull_request:
+    branches:
+      - fans-crm
+
+env:
+  EEE: ${{vars.EEE}}
+
+jobs:
+  docker:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: "Install node"
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.10.0
+
+      - name: "Check out code"
+        uses: actions/checkout@v4
+
+      - name: "Create .env file"
+        working-directory: ./be
+        run: |
+          echo "$EEE" > .env
+          cat .env
+
+      - name: "Build and Run DB"
+        run: npm run up:db
+        working-directory: ./be
+        timeout-minutes: 2
+
+      - name: "Wait DB"
+        run: npm run wait:db
+        working-directory: ./be
+        timeout-minutes: 2
+
+      - name: "Build and Run BE"
+        run: npm run up:be
+        working-directory: ./be
+        timeout-minutes: 2
+
+      - name: "Update /etc/hosts"
+        run: |
+            echo "127.0.0.1 db" | sudo tee -a /etc/hosts
+
+      - name: "Install dependencies"
+        run: npm install && npm install -g @nestjs/cli
+        working-directory: ./be
+
+      - name: "Run linter"
+        run: npm run lint
+        working-directory: ./be
+
+      - name: "Run Test Coverage"
+        run: npm run test:cov
+        working-directory: ./be
+
+      - name: "Run E2E"
+        run: npm run test:e2e
+        working-directory: ./be
+
+      - name: "Stop containers"
+        run: docker stop $(docker ps -a -q); docker rm $(docker ps -a -q); docker system prune -af --volumes;
+        working-directory: ./be
