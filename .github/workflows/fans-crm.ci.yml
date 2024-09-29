@@ -3,9 +3,6 @@ on:
   push:
     branches:
       - fans-crm
-  pull_request:
-    branches:
-      - fans-crm
 
 env:
   EEE: ${{vars.EEE}}
