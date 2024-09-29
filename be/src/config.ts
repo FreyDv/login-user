@@ -13,7 +13,7 @@ const {
   JWT_EXPIRES,
 } = process.env;
 
-if (jWTRegExp.test(JWT_SECRET)) {
+if (!jWTRegExp.test(JWT_SECRET)) {
   throw new Error(
     'JWT_SECRET required and should be 32 characters length with at least one digit, lowercase letter, uppercase letter are present ',
   );
