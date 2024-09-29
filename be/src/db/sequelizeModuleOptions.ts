@@ -9,6 +9,9 @@ export const sequelizeConfig: SequelizeModuleOptions = {
   password: config.db.password,
   database: config.db.name,
   models: [],
+  //TODO setup liquidise containers to up DB with migrations
+  synchronize: true,
+  autoLoadModels: true,
   ...(config.debug
     ? {
         logging: console.debug,
