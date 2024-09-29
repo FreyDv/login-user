@@ -12,11 +12,11 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserResultDto } from './dto/create-user-result.dto';
 import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @ApiBearerAuth()
   @ApiOperation({ summary: 'Find user by id' })
   @ApiResponse({
     status: HttpStatus.CREATED,
@@ -28,7 +28,6 @@ export class UserController {
     return this.userService.findById(id);
   }
 
-  @ApiBearerAuth()
   @ApiOperation({ summary: 'Update user' })
   @ApiResponse({
     status: HttpStatus.OK,
@@ -40,7 +39,6 @@ export class UserController {
     return this.userService.update(id, updateUserDto);
   }
 
-  @ApiBearerAuth()
   @ApiOperation({ summary: 'Delete user' })
   @ApiResponse({
     status: HttpStatus.OK,
