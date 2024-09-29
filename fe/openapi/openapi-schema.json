@@ -1,0 +1,399 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/ping": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Internal Server Controller"
+        ]
+      }
+    },
+    "/api/auth/sign-up": {
+      "post": {
+        "operationId": "AuthController_register",
+        "summary": "Register new User",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResultDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/auth/sign-in": {
+      "post": {
+        "operationId": "AuthController_login",
+        "summary": "Enter to site using email and password",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResultDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/user/{id}": {
+      "get": {
+        "operationId": "UserController_findOne",
+        "summary": "Find user by id",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindByIdUserResultDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "JWT": []
+          },
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "UserController_update",
+        "summary": "Update user",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateUserResultDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "UserController_remove",
+        "summary": "Delete user",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteUserResultDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ],
+        "security": [
+          {
+            "JWT": []
+          },
+          {
+            "bearer": []
+          }
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Login-User API",
+    "description": "Demonstration of code style based on Login and authorized User CRUD",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "RegisterDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User Email",
+            "example": "email@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "User Password",
+            "example": "password",
+            "minLength": 8
+          },
+          "name": {
+            "type": "string",
+            "description": "User Name",
+            "example": "Daniil"
+          },
+          "secondName": {
+            "type": "string",
+            "description": "User Second Name",
+            "example": "Frei"
+          },
+          "birthDate": {
+            "type": "string",
+            "description": "User BirthDate",
+            "example": "Frei"
+          }
+        },
+        "required": [
+          "email",
+          "password",
+          "name"
+        ]
+      },
+      "AuthResultDto": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "User Token to access api",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlYmIyNmNjMS1lMTNlLTQwZTYtOTM1Zi05YmY1NjgyYTMzOGMiLCJpYXQiOjE1MTYyMzkwMjJ9.8w8zXFQf9ThFBbNdXm-UPv6chlEL3cdjmS9mouEkG3A"
+          }
+        },
+        "required": [
+          "accessToken"
+        ]
+      },
+      "LoginDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User Email",
+            "example": "email@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "User Password",
+            "example": "password",
+            "minLength": 8
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "FindByIdUserResultDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User Email",
+            "example": "email@example.com"
+          },
+          "name": {
+            "type": "string",
+            "description": "User Name",
+            "example": "Daniil"
+          },
+          "secondName": {
+            "type": "string",
+            "description": "User Second Name",
+            "example": "Frei"
+          },
+          "birthDate": {
+            "type": "string",
+            "description": "User BirthDate",
+            "example": "Frei"
+          },
+          "id": {
+            "type": "string",
+            "description": "User Id",
+            "example": "ebb26cc1-e13e-40e6-935f-9bf5682a338c"
+          }
+        },
+        "required": [
+          "email",
+          "name",
+          "id"
+        ]
+      },
+      "UpdateUserDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User Email",
+            "example": "email@example.com"
+          },
+          "name": {
+            "type": "string",
+            "description": "User Name",
+            "example": "Daniil"
+          },
+          "secondName": {
+            "type": "string",
+            "description": "User Second Name",
+            "example": "Frei"
+          },
+          "birthDate": {
+            "type": "string",
+            "description": "User BirthDate",
+            "example": "Frei"
+          }
+        }
+      },
+      "UpdateUserResultDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User Email",
+            "example": "email@example.com"
+          },
+          "name": {
+            "type": "string",
+            "description": "User Name",
+            "example": "Daniil"
+          },
+          "secondName": {
+            "type": "string",
+            "description": "User Second Name",
+            "example": "Frei"
+          },
+          "birthDate": {
+            "type": "string",
+            "description": "User BirthDate",
+            "example": "Frei"
+          },
+          "id": {
+            "type": "string",
+            "description": "User Id",
+            "example": "ebb26cc1-e13e-40e6-935f-9bf5682a338c"
+          }
+        },
+        "required": [
+          "email",
+          "name",
+          "id"
+        ]
+      },
+      "DeleteUserResultDto": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "Deleting result",
+            "example": true
+          }
+        },
+        "required": [
+          "success"
+        ]
+      }
+    }
+  }
+}
