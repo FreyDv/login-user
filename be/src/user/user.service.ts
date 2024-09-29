@@ -4,7 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { UserModel } from './entities/user.model';
 import { UserForAuthInterface } from '../common/userSearchForAuth.interface';
-import { CreateUserResultDto } from './dto/create-user-result.dto';
+import { FindByEmailType } from './dto/findByEmail.type';
 
 @Injectable()
 export class UserService implements UserForAuthInterface {
@@ -18,8 +18,15 @@ export class UserService implements UserForAuthInterface {
     return { id };
   }
 
-  findByEmailWithPassword(email: string): Promise<CreateUserResultDto> {
-    return this.userModel.scope('withPassword').findOne({
+  findByEmail(
+    email: string,
+    shouldReturnPassword: boolean = false,
+  ): Promise<FindByEmailType> {
+    const scopedUserModel = shouldReturnPassword
+      ? this.userModel.scope('withPassword')
+      : this.userModel;
+
+    return scopedUserModel.findOne({
       where: {
         email,
       },
