@@ -1,4 +1,4 @@
-import { Module, OnModuleInit } from '@nestjs/common';
+import { Module, OnModuleInit, ValidationPipe } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { SwaggerModule } from '@nestjs/swagger';
 import { SequelizeModule } from '@nestjs/sequelize';
@@ -31,6 +31,15 @@ export class AppModule implements OnModuleInit {
   constructor(private sequelize: Sequelize) {}
 
   async onModuleInit() {
-    await this.sequelize.authenticate();
+    //TODO Remove after migration through liquidbase will be added
+    let retryCount = 0;
+    do {
+      try {
+        await this.sequelize.authenticate();
+        break;
+      } catch (error) {
+        retryCount++;
+      }
+    } while (retryCount < 10);
   }
 }
