@@ -12,8 +12,8 @@ import { APP_PIPE } from '@nestjs/core';
   imports: [
     SwaggerModule,
     SequelizeModule.forRoot(sequelizeConfig),
-    UserModule,
     AuthModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [
