@@ -61,7 +61,7 @@ describe('AuthController (e2e)', () => {
   it('User Get:id - should return almost all fields except password', async () => {
     const { body } = await request(app.getHttpServer())
       .get(`/user/${userIdFromAccessToken}`)
-      .set('Authorization', `${accessToken}`)
+      .set('Authorization', `Bearer ${accessToken}`)
       .expect(200);
 
     expect(body.id).toBe(userIdFromAccessToken);
@@ -79,7 +79,7 @@ describe('AuthController (e2e)', () => {
     const { body } = await request(app.getHttpServer())
       .patch(`/user/${userIdFromAccessToken}`)
       .send({ email: testUser.email, password: testUser.password + 1 })
-      .set('Authorization', `${accessToken}`)
+      .set('Authorization', `Bearer ${accessToken}`)
       .expect(400);
     expect({
       message: ['property password should not exist'],
@@ -101,7 +101,7 @@ describe('AuthController (e2e)', () => {
     const { body } = await request(app.getHttpServer())
       .patch(`/user/${userIdFromAccessToken}`)
       .send(dtoToPatch)
-      .set('Authorization', `${accessToken}`)
+      .set('Authorization', `Bearer ${accessToken}`)
       .expect(200);
 
     expect(body.id).toBe(userIdFromAccessToken);
@@ -118,7 +118,7 @@ describe('AuthController (e2e)', () => {
   it('Delete:id - should return success: true', async () => {
     const { body } = await request(app.getHttpServer())
       .delete(`/user/${userIdFromAccessToken}`)
-      .set('Authorization', `${accessToken}`)
+      .set('Authorization', `Bearer ${accessToken}`)
       .expect(200);
 
     expect(body.success).toBeTruthy();
@@ -129,7 +129,7 @@ describe('AuthController (e2e)', () => {
   it('Delete:id already deleted user - should success: false', async () => {
     const { body } = await request(app.getHttpServer())
       .delete(`/user/${userIdFromAccessToken}`)
-      .set('Authorization', `${accessToken}`)
+      .set('Authorization', `Bearer ${accessToken}`)
       .expect(200);
 
     expect(body.success).toBeFalsy();
@@ -140,7 +140,7 @@ describe('AuthController (e2e)', () => {
   it('User Get:id non existing user- should return almost all fields except password', () => {
     return request(app.getHttpServer())
       .get(`/user/${userIdFromAccessToken}`)
-      .set('Authorization', `${accessToken}`)
+      .set('Authorization', `Bearer ${accessToken}`)
       .expect(404);
   });
 });
