@@ -6,6 +6,7 @@ import { sequelizeConfig } from './db/sequelizeModuleOptions';
 import { Sequelize } from 'sequelize-typescript';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { APP_PIPE } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -15,7 +16,16 @@ import { AuthModule } from './auth/auth.module';
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [],
+  providers: [
+    {
+      provide: APP_PIPE,
+      useValue: new ValidationPipe({
+        whitelist: true,
+        forbidNonWhitelisted: true,
+        transform: true,
+      }),
+    },
+  ],
 })
 export class AppModule implements OnModuleInit {
   constructor(private sequelize: Sequelize) {}
