@@ -18,7 +18,7 @@ export class UserModel extends Model<
   @Column({
     type: DataTypes.UUID,
     allowNull: false,
-    defaultValue: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
   })
   id: string;
