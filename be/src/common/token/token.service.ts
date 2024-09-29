@@ -14,8 +14,6 @@ export class TokenService {
       .catch((err) => {
         throw new UnauthorizedException(err);
       });
-
-    console.log(payload);
     return { isValid: true, payload: payload };
   }
 

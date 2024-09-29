@@ -37,6 +37,7 @@ export class AppModule implements OnModuleInit {
       try {
         await this.sequelize.authenticate();
         break;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
         retryCount++;
       }

@@ -11,7 +11,7 @@ describe('AuthController (e2e)', () => {
 
   jest.setTimeout(30000);
 
-  let testUser = {
+  const testUser = {
     email: 'daniilfrei@gmail.com',
     password: 'Abc12345678',
     name: 'Daniil',
@@ -31,7 +31,6 @@ describe('AuthController (e2e)', () => {
     await app.init();
 
     tokenService = app.select(TokenModule).get(TokenService);
-    console.log(tokenService);
   });
 
   it('sign-up User with all possible fields - should return accessToken', async () => {
@@ -97,7 +96,8 @@ describe('AuthController (e2e)', () => {
     testUser.secondName = 'TEST' + testUser.secondName;
     testUser.birthDate = new Date('2012-12-12T12:12:12.120Z').toISOString();
 
-    const { password: _, ...dtoToPatch } = testUser;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...dtoToPatch } = testUser;
     const { body } = await request(app.getHttpServer())
       .patch(`/user/${userIdFromAccessToken}`)
       .send(dtoToPatch)
@@ -137,12 +137,10 @@ describe('AuthController (e2e)', () => {
     return body;
   });
 
-  it('User Get:id non existing user- should return almost all fields except password', async () => {
-    const res = await request(app.getHttpServer())
+  it('User Get:id non existing user- should return almost all fields except password', () => {
+    return request(app.getHttpServer())
       .get(`/user/${userIdFromAccessToken}`)
       .set('Authorization', `${accessToken}`)
       .expect(404);
-
-    return res;
   });
 });

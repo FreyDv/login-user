@@ -17,18 +17,16 @@ describe('AuthController (e2e)', () => {
     await app.init();
   });
 
-  it('sign-in with non registered user - should return 401', async () => {
+  it('sign-in with non registered user - should return 401', () => {
     const email = 'daniilfrei@gmail.com';
     const password = 'Abc12345678';
 
-    const response = await request(app.getHttpServer())
+    return request(app.getHttpServer())
       .post('/auth/sign-in')
       .send({ email, password })
       .set('Accept', 'application/json')
       .expect(401)
       .expect({ message: 'Unauthorized', statusCode: 401 });
-
-    return response;
   });
 
   it('sign-up User with all possible fields - should return accessToken', async () => {
@@ -82,7 +80,6 @@ describe('AuthController (e2e)', () => {
       '8 characters, name as numberString, secondName as empty string, ' +
       'and not existed email - should return 403',
     async () => {
-      const email = 'daniil@@frei@gmail.com';
       const password = '123';
       const name = '45213';
       const secondName = '';
