@@ -23,7 +23,7 @@ export const config = {
   port: +(PORT || 3000),
   jwt: {
     secret: JWT_SECRET,
-    expiresIn: JWT_EXPIRES || '60s',
+    expiresIn: JWT_EXPIRES || '2h',
   },
   debug: process.env.DEBUG === 'true',
   db: {
