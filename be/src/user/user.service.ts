@@ -33,15 +33,28 @@ export class UserService implements UserForAuthInterface {
     });
   }
 
-  findById(id: string) {
-    return this.userModel.findByPk(id);
+  async findById(id: string): Promise<FindByIdUserResultDto> {
+    const user = await this.userModel.findByPk(id);
+
+    if (!user) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+
+    return user;
   }
 
-  update(id: string, updateUserDto: UpdateUserDto) {
-    return this.userModel.update(updateUserDto, { where: { id } });
+  async update(
+    id: string,
+    updateUserDto: UpdateUserDto,
+  ): Promise<UpdateUserResultDto> {
+    const [affectedCount] = await UserModel.update(updateUserDto, {
+      where: { id },
+    });
+    return affectedCount === 0 ? null : this.findById(id);
   }
 
-  remove(id: string) {
-    return this.userModel.destroy({ where: { id } });
+  async remove(id: string): Promise<DeleteUserResultDto> {
+    const res = await this.userModel.destroy({ where: { id } });
+    return { success: res > 0 };
   }
 }
