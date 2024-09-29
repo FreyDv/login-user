@@ -5,12 +5,14 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { sequelizeConfig } from './db/sequelizeModuleOptions';
 import { Sequelize } from 'sequelize-typescript';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     SwaggerModule,
     SequelizeModule.forRoot(sequelizeConfig),
     UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [],
