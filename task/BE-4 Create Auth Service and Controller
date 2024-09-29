@@ -1,12 +1,24 @@
-Create CRUD LoginController with base Endpoint /login
+Create LoginController with base Endpoint /auth
 and additional:
-/login
-/logOut
+/sign-in
+/sign-up
+
+TokenService
+ -validateJWT(jwt)
+ -generateJWT(userId)
+
+
+PasswordService
+ - encryptPassword(password)
+ - validatePassword(unverifiedPassword, validPassword)
 
 Create AuthService with next methods And all needed DTO:
+login - will call UserService to get User with password from DB by email and generate JWT Token
+        by TokenService.generateJWT(userId)
 
-login
-encryptPassword(password)
-validatePassword(password)
-validateJWT(jwt)
-generateJWT(userId)
+register - will call UserService to create User after that call TokenService.generateJWT(userId)
+            to grand JWT Token fro recently registered User
+
+
+
+
