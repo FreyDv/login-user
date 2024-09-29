@@ -22,4 +22,8 @@ export class TokenService {
   async sign(payloadJWTInterface: PayloadJWTInterface): Promise<string> {
     return this.jwtService.signAsync(payloadJWTInterface);
   }
+
+  async decode(jwt: string): Promise<PayloadJWTInterface> {
+    return this.jwtService.decode(jwt);
+  }
 }
