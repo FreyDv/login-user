@@ -19,7 +19,7 @@ export class AuthService {
   ) {}
 
   async login(loginDto: LoginDto): Promise<AuthResultDto> {
-    const user = await this.userService.findByEmail(loginDto.email);
+    const user = await this.userService.findByEmail(loginDto.email, true);
 
     if (!user) {
       throw new UnauthorizedException();
