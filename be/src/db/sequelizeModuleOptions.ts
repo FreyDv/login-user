@@ -1,5 +1,6 @@
 import { SequelizeModuleOptions } from '@nestjs/sequelize';
 import { config } from '../config';
+import { UserModel } from '../user/entities/user.model';
 
 export const sequelizeConfig: SequelizeModuleOptions = {
   dialect: 'mysql',
@@ -8,7 +9,7 @@ export const sequelizeConfig: SequelizeModuleOptions = {
   username: config.db.username,
   password: config.db.password,
   database: config.db.name,
-  models: [],
+  models: [UserModel],
   //TODO setup liquidise containers to up DB with migrations
   synchronize: true,
   autoLoadModels: true,
