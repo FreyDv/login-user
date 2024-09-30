@@ -21,7 +21,15 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, documentConfig);
 
-  const outputPath = join(__dirname, '..', '..', 'openapi-schema.json');
+  const outputPath = join(
+    __dirname,
+    '..',
+    '..',
+    'fe',
+    'openapi',
+    'openapi-schema.json',
+  );
+
   writeFileSync(outputPath, JSON.stringify(document, null, 2));
 
   SwaggerModule.setup('docs', app, document);
