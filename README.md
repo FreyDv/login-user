@@ -47,7 +47,7 @@ DEBUG=false" >> be/.env
 ```
 ---
 ## LOCAL_BE_WITH_DOCKER_DB
-#### Change Directory to BE (all next command should run under db dir)
+#### Change Directory to BE (all next command should run under be dir)
 ```bash
 cd be
 ```
@@ -76,7 +76,7 @@ npm run start:debug
 ```
 
 ## Run in CONTAINER
-#### Change Directory to BE (all next command should run under db dir)
+#### Change Directory to BE (all next command should run under be dir)
 ```bash
 cd be
 ```
