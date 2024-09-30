@@ -1,4 +1,10 @@
 # Hello this is simple guide how to start up project from scratch
+
+#### In folder ./task you can find Technical and task the I created to myself to have a plan
+
+#### I am a little bit change initial requirements to make project interesting for me) So sorry that the project does not fully and clearly meet your requirements 
+
+
 ## There two-way of run: 
 - ### CONTAINER:  whole in docker BE and BD will up three docker and docker compose (No ability to run e2e test locally)
 - ### LOCAL_BE_WITH_DOCKER_DB:  db in docker and BE app on local machine (You can go through request with debugger and inspect all part of BE using e2e)
