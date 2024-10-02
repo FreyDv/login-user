@@ -6,7 +6,7 @@
 
 
 ## There two-way of run: 
-- ### CONTAINER:  whole in docker BE and BD will up three docker and docker compose (No ability to run e2e test locally)
+- ### CONTAINER:  whole in docker BE and BD will up thrue docker and docker compose (No ability to run e2e test locally)
 - ### LOCAL_BE_WITH_DOCKER_DB:  db in docker and BE app on local machine (You can go through request with debugger and inspect all part of BE using e2e)
 
 #### Prerequisite:
