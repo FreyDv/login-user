@@ -17,7 +17,7 @@
 
 ---
 ### Get repo locally
-```bash
+```sh
 git clone https://github.com/FreyDv/login-user.git
 ```
 #### Change branch 
