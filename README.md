@@ -1,5 +1,7 @@
 # Hello this is simple guide how to start up project from scratch
 
+Unfortunately i didn't have time to finished FE part and position was mostly BE that's why I prepare FE template but nothing else in FE directory
+
 #### In folder ./task you can find Technical and task the I created to myself to have a plan
 
 #### I am a little bit change initial requirements to make project interesting for me) So sorry that the project does not fully and clearly meet your requirements 
